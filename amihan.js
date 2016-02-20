@@ -69,21 +69,21 @@ function amihanBot(creds,list){
 			console.dir(raw_command);
 			var help = "Hello. What do you need?" +
 
-			"\nHere is a list of thing I can do:"+
+			"\nHere is a list of things I can do:"+
 			"\n\nFORMAT - ['COMMANDS'] or [CARD NAME]"
 			+"\n I return netrunnerdb links for CARD NAME"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - show list of commands"
 			+"\nrand - random card"
 			+"\nflavor - random flavor text"
-			+"\nflip - flips a Coin"
+			+"\nflip - flips a coin"
 			+"\npsi - 'play' a PSI Game";
 
 			if(raw_command){
 				for(var x = 0; x < raw_command.length;x++) {
 					var rand = Math.floor(Math.random()*(cardlist.list.length+1))
 					var command = raw_command[x].slice(1,raw_command[x].length-1);
-					switch(command) {
+					switch(command.toLowerCase()) {
 
 						case "help":
 						api.sendMessage(help,message.threadID);
@@ -101,7 +101,7 @@ function amihanBot(creds,list){
 
 						case "psi":
 						var psi = Math.floor((Math.random()*3));
-						api.sendMessage("PSI bid: " + psi,message.threadID);
+						api.sendMessage("Psi bid: " + psi,message.threadID);
 						break;
 
 						case "rand":
