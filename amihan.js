@@ -117,7 +117,7 @@ function amihanBot(user,pass,list){
 			}
 
 			else if(message.body == "amihan_init"){
-				api.sendMessage("Haas-Bioroid -- XX 1.0 \n-- System Startup -- ", message.threadID);
+				api.sendMessage("Haas-Bioroid -- Amihan 1.0 \n-- System Startup -- ", message.threadID);
 			}
 		});
 	});
