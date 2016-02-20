@@ -1,10 +1,11 @@
 {
   "name": "Amihan-1.0",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "dependencies": {
     "facebook-chat-api": "^1.0.6",
+    "jsonfile": "^2.2.3",
+    "prompt": "^1.0.0",
     "regex": "^0.1.1"
   },
   "devDependencies": {},
@@ -13,5 +14,14 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/profwacko/Amihan-1.0.git"
+  },
+  "bugs": {
+    "url": "https://github.com/profwacko/Amihan-1.0/issues"
+  },
+  "homepage": "https://github.com/profwacko/Amihan-1.0#readme",
+  "description": ""
 }
