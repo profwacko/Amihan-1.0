@@ -71,8 +71,8 @@ function amihanBot(creds,list){
 			+"\n\nCOMMANDS:"
 			+"\nhelp - Asks for help"
 			+"\n'Card Name' - Returns netrunnerdb link on the card"
-			+"\n rand - load a random card"
-			+"\n flavor - loads random flavor text"
+			+"\nrand - load a random card"
+			+"\nflavor - loads random flavor text"
 			+"\nflip - Flips a Coin"
 			+"\npsi - 'Play' a PSI Game";
 
