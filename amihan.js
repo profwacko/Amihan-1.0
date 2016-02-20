@@ -67,18 +67,17 @@ function amihanBot(creds,list){
 
 			var raw_command = message.body.match(/\[([)@\w :&.\-'\"]+)\]/g)
 			console.dir(raw_command);
-			var help = "
-			Hello. What do you need?
+			var help = "Hello. What do you need?" +
 
-			Here is a list of thing I can do:
-			FORMAT - ['commands']"
+			"\nHere is a list of thing I can do:"+
+			"\n\nFORMAT - ['COMMANDS'] or [CARD NAME]"
+			+"\n I return netrunnerdb links for CARD NAME"
 			+"\n\nCOMMANDS:"
-			+"\n\nhelp - Asks for help"
-			+"\n\n'Card Name' - Returns netrunnerdb link on the card"
-			+"\n\nrand - load a random card"
-			+"\n\nflavor - loads random flavor text"
-			+"\n\nflip - Flips a Coin"
-			+"\n\npsi - 'Play' a PSI Game";
+			+"\nhelp - show list of commands"
+			+"\nrand - random card"
+			+"\nflavor - random flavor text"
+			+"\nflip - flips a Coin"
+			+"\npsi - 'play' a PSI Game";
 
 			if(raw_command){
 				for(var x = 0; x < raw_command.length;x++) {
