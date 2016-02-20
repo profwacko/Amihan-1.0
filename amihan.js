@@ -67,14 +67,18 @@ function amihanBot(creds,list){
 
 			var raw_command = message.body.match(/\[([)@\w :&.\-'\"]+)\]/g)
 			console.dir(raw_command);
-			var help = "FORMAT - ['commands']"
+			var help = "
+			Hello. What do you need?
+
+			Here is a list of thing I can do:
+			FORMAT - ['commands']"
 			+"\n\nCOMMANDS:"
-			+"\nhelp - Asks for help"
-			+"\n'Card Name' - Returns netrunnerdb link on the card"
-			+"\nrand - load a random card"
-			+"\nflavor - loads random flavor text"
-			+"\nflip - Flips a Coin"
-			+"\npsi - 'Play' a PSI Game";
+			+"\n\nhelp - Asks for help"
+			+"\n\n'Card Name' - Returns netrunnerdb link on the card"
+			+"\n\nrand - load a random card"
+			+"\n\nflavor - loads random flavor text"
+			+"\n\nflip - Flips a Coin"
+			+"\n\npsi - 'Play' a PSI Game";
 
 			if(raw_command){
 				for(var x = 0; x < raw_command.length;x++) {
@@ -87,6 +91,7 @@ function amihanBot(creds,list){
 						break;
 
 						case "hello":
+						api.sendMessage("Hello" + message.senderName,message.threadID)
 						break;
 
 						case "flip":
@@ -111,6 +116,10 @@ function amihanBot(creds,list){
 						}
 
 						api.sendMessage(cardlist.list[rand]["flavor"] + '\n\n-- '+ cardlist.list[rand]["title"],message.threadID);
+						break;
+
+						case "about":
+							api.sendMessage("",message.threadID);
 						break;
 
 						default:
