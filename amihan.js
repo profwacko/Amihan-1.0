@@ -1,7 +1,6 @@
 var login = require("facebook-chat-api");
 var Regex = require("regex");
 var jsonfile = require('jsonfile')
-var prompt = require('prompt')
 var util = require('util')
 
 function CardList(filename){
@@ -44,24 +43,8 @@ function CardList(filename){
 var cardlist = new CardList('cardlist.json');
 
 cardlist.load(function(){
-	//console.dir(cardlist.list);
-	console.log(cardlist.list.length + " cards in database")
-	//console.log(cardlist.search("Corroder"))
-
-	var schema = {
-	    properties: {
-	      username: {
-	      },
-	      password: {
-	        hidden: true
-	      }
-	    }
-	  };
-
-	prompt.start();
-	prompt.get(schema, function (err, result) {
-	amihanBot(result.username,result.password,cardlist) //FB BOT START
-	});
+	console.log(cardlist.list.length + " cards in database");
+	amihanBot(username,password,cardlist); //FB BOT START
 });
 
 function amihanBot(user,pass,list){
