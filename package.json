@@ -4,6 +4,7 @@
   "main": "main.js",
   "dependencies": {
     "facebook-chat-api": "^1.0.6",
+    "forever": "^0.15.1",
     "jsonfile": "^2.2.3",
     "regex": "^0.1.1"
   },

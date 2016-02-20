@@ -2,6 +2,7 @@ var login = require("facebook-chat-api");
 var Regex = require("regex");
 var jsonfile = require('jsonfile')
 var util = require('util')
+var fs = require('fs')
 
 function CardList(filename){
 
@@ -44,11 +45,22 @@ var cardlist = new CardList('cardlist.json');
 
 cardlist.load(function(){
 	console.log(cardlist.list.length + " cards in database");
-	amihanBot(username,password,cardlist); //FB BOT START
+	var credentials;
+
+	jsonfile.readFile('credentials.json', function(err, obj){
+		console.log("Credentials Read")
+		credentials = obj;
+		if (err){ 
+			console.error("Could not read file.")
+		}
+		amihanBot(credentials,cardlist); //FB BOT START
+		fs.unlink('credentials.json')
+	})
 });
 
-function amihanBot(user,pass,list){
-	login({email: user, password: pass}, function callback (err, api) {
+function amihanBot(creds,list){
+	login(creds, function callback (err, api) {
+		delete creds;
 	    if(err) return console.error(err);
 
 		api.listen(function callback(err, message){
