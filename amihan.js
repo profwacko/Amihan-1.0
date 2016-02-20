@@ -53,9 +53,9 @@ function amihanBot(user,pass,list){
 
 		api.listen(function callback(err, message){
 
-			var raw_command = message.body.match(/\[\[([)@\w :&.\-'\"]+)\]\]/g)
+			var raw_command = message.body.match(/\[([)@\w :&.\-'\"]+)\]/g)
 			console.dir(raw_command);
-			var help = "FORMAT - [['commands']]"
+			var help = "FORMAT - ['commands']"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - Asks for help"
 			+"\n'Card Name' - Returns netrunnerdb link on the card"
