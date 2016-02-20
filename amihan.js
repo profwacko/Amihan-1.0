@@ -67,7 +67,7 @@ function amihanBot(user,pass,list){
 			if(raw_command){
 				for(var x = 0; x < raw_command.length;x++) {
 					var rand = Math.floor(Math.random()*(cardlist.list.length+1))
-					var command = raw_command[x].slice(2,raw_command[x].length-2);
+					var command = raw_command[x].slice(1,raw_command[x].length-1);
 					switch(command) {
 
 						case "help":
