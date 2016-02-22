@@ -69,9 +69,10 @@ function amihanBot(creds,list){
 			console.dir(raw_command);
 			var help = "Hello. What do you need?" +
 
-			"\nHere is a list of things I can do:"+
-			"\n\nFORMAT - ['COMMANDS'] or [CARD NAME]"
-			+"\n I return netrunnerdb links for CARD NAME"
+			"\nHere is a list of things I can do:"
+			+"\n\nChat Command Format"
+			+"\n['card name'] or [COMMANDS]"
+			+"\n I return netrunnerdb links for 'card name'"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - show list of commands"
 			+"\nrand - random card"
