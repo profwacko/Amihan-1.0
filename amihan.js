@@ -64,7 +64,7 @@ function amihanBot(creds,list){
 	    if(err) return console.error(err);
 
 		api.listen(function callback(err, message){
-
+			if(err) return console.error(err);
 			var raw_command = message.body.match(/\[([)@\w :&.\-'\"]+)\]/g)
 			console.dir(raw_command);
 			var help = "Hello. What do you need?" +
