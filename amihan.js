@@ -65,7 +65,7 @@ function amihanBot(creds,list){
 
 		api.listen(function callback(err, message){
 			if(err) return console.error(err);
-			var raw_command = message.body.match(/\[([)@\w :&.\-'\"]+)\]/g)
+			var raw_command = message.body.match(/\[([)@\w :&.\-'\"\$]+)\]/g)
 			console.dir(raw_command);
 			var help = "Hello. What do you need?" +
 
@@ -123,15 +123,33 @@ function amihanBot(creds,list){
 						break;
 
 						default:
-						//handle multiple in a string
-						var card = cardlist.search(command);
+						switch(command.slice(command.length-2,command.length) ){
+							case "$f":
+								//get card flavor
+								var card = cardlist.search(command.slice(0,command.length-2));
+								if (card){
+									if (card["flavor"]){
+										api.sendMessage(card["flavor"] + '\n\n-- '+ card["title"],message.threadID);
+									}
+									else{		
+										api.sendMessage("No flavor found for: " + card["title"],message.threadID);
+									}
+								}
+								else {
+									console.log("No cards found for: " + command.slice(0,command.length-2))
+									api.sendMessage("No cards found for: " + command.slice(0,command.length-2),message.threadID);
+								}
+							break;
+							default:
+								var card = cardlist.search(command);
 
-						if (card){
-							api.sendMessage(card,message.threadID);
-						}
-						else {
-							console.log("No cards found for: " + command)
-							api.sendMessage("No cards found for: " + command,message.threadID);
+								if (card){
+									api.sendMessage(card,message.threadID);
+								}
+								else {
+									console.log("No cards found for: " + command)
+									api.sendMessage("No cards found for: " + command,message.threadID);
+								}
 						}
 					}
 				}
