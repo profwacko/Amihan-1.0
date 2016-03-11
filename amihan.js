@@ -140,6 +140,17 @@ function amihanBot(creds,list){
 									api.sendMessage("No cards found for: " + command.slice(0,command.length-2),message.threadID);
 								}
 							break;
+							
+							case "$t":
+								var card = cardlist.search(command.slice(0,command.length-2));
+								if (card){
+									api.sendMessage(card["title"] + "\n" + card["text"] ,message.threadID);
+								}
+								else{
+									console.log("No cards found for: " + command.slice(0,command.length-2))
+									api.sendMessage("No cards found for: " + command.slice(0,command.length-2),message.threadID);
+								}
+							
 							default:
 								var card = cardlist.search(command);
 
