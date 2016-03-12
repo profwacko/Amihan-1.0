@@ -77,7 +77,7 @@ function amihanBot(creds,list){
 			+"\\nMODIFIER"
 			+"\n$f - flavor"
 			+"\n$t - text"
-			+"\n$faq - ANCUR link"
+			//+"\n$faq - ANCUR link"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - show list of commands"
 			+"\nrand - random card"
