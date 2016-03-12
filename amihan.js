@@ -1,8 +1,8 @@
 var login = require("facebook-chat-api");
 var Regex = require("regex");
-var jsonfile = require('jsonfile')
-var util = require('util')
-var fs = require('fs')
+var jsonfile = require('jsonfile');
+var util = require('util');
+var fs = require('fs');
 
 function CardList(filename){
 
@@ -15,7 +15,7 @@ function CardList(filename){
 
 	this.load = function(callback){
 		jsonfile.readFile(filename, function(err, obj){
-			console.log("File Read")
+			console.log("File Read");
 			self.list = obj;
 			//console.dir(list);
 			if (err){ 
@@ -33,7 +33,7 @@ function CardList(filename){
 
 	this.search = function(cardname){
 		for (var i in self.list){
-			if(self.list[i]["title"].toUpperCase() == cardname.toUpperCase()){
+			if(self.list[i].title.toUpperCase() == cardname.toUpperCase()){
 				return self.list[i];
 			}
 		}
@@ -60,7 +60,6 @@ cardlist.load(function(){
 
 function amihanBot(creds,list){
 	login(creds, function callback (err, api) {
-		delete creds;
 	    if(err) return console.error(err);
 
 		api.listen(function callback(err, message){
@@ -84,90 +83,97 @@ function amihanBot(creds,list){
 				for(var x = 0; x < raw_command.length;x++) {
 					var rand = Math.floor(Math.random()*(cardlist.list.length+1))
 					var command = raw_command[x].slice(1,raw_command[x].length-1);
-					switch(command.toLowerCase()) {
 
+					switch(command.toLowerCase()) {
 						case "help":
-						api.sendMessage(help,message.threadID);
+							api.sendMessage(help,message.threadID);
 						break;
 
 						case "hello":
-						api.sendMessage("Hello" + message.senderName,message.threadID)
+							api.sendMessage("Hello" + message.senderName,message.threadID)
 						break;
 
 						case "flip":
-						var flip = Math.floor((Math.random()*2));
-						if(flip) api.sendMessage("Coin Flip: Heads",message.threadID);
-						else api.sendMessage("Coin Flip: Tails",message.threadID);
+							var flip = Math.floor((Math.random()*2));
+							if(flip) api.sendMessage("Coin Flip: Heads",message.threadID);
+							else api.sendMessage("Coin Flip: Tails",message.threadID);
 						break;
 
 						case "psi":
-						var psi = Math.floor((Math.random()*3));
-						api.sendMessage("Psi bid: " + psi,message.threadID);
+							var psi = Math.floor((Math.random()*3));
+							api.sendMessage("Psi bid: " + psi,message.threadID);
 						break;
 
 						case "rand":
-						api.sendMessage(cardlist.list[rand],message.threadID);
+							api.sendMessage(cardlist.list[rand],message.threadID);
 						break;
 
 						case "flavor": 
+							while(!cardlist.list[rand].flavor){
+								rand = Math.floor(Math.random()*(cardlist.list.length+1));
+							}
 
-						while(!cardlist.list[rand]["flavor"]){
-							rand = Math.floor(Math.random()*(cardlist.list.length+1));
-						}
-
-						api.sendMessage(cardlist.list[rand]["flavor"] + '\n\n-- '+ cardlist.list[rand]["title"],message.threadID);
+							api.sendMessage(cardlist.list[rand].flavor + '\n\n-- '+ cardlist.list[rand].title,message.threadID);
 						break;
 
 						case "about":
-							api.sendMessage("",message.threadID);
+							api.sendMessage("https://github.com/profwacko/Amihan-1.0",message.threadID);
 						break;
 
 						default:
-						switch(command.slice(command.length-2,command.length) ){
-							case "$f":
-								//get card flavor
-								var card = cardlist.search(command.slice(0,command.length-2));
-								if (card){
-									if (card["flavor"]){
-										api.sendMessage(card["flavor"] + '\n\n-- '+ card["title"],message.threadID);
+							var cardname = command;
+							var modifier = command.slice(command.length-2,command.length);
+							var card;
+							
+							console.log(modifier.indexOf("$"));
+							if (modifier.indexOf("$") >= 0){
+								cardname = command.slice(0,command.length-2);
+							}
+							card = cardlist.search(cardname);
+
+							if(card){
+							switch(modifier){
+								case "$f":
+									//get card flavor
+									if (card.flavor){
+										api.sendMessage(card.flavor + '\n\n-- '+ card.title,message.threadID);
 									}
 									else{		
-										api.sendMessage("No flavor found for: " + card["title"],message.threadID);
+										api.sendMessage("No flavor found for: " + card.title,message.threadID);
 									}
-								}
-								else {
-									console.log("No cards found for: " + command.slice(0,command.length-2))
-									api.sendMessage("No cards found for: " + command.slice(0,command.length-2),message.threadID);
-								}
-							break;
-							
-							case "$t":
-								var card = cardlist.search(command.slice(0,command.length-2));
-								if (card){
-									api.sendMessage(card["title"] + "\n" + card["text"] ,message.threadID);
-								}
-								else{
-									console.log("No cards found for: " + command.slice(0,command.length-2))
-									api.sendMessage("No cards found for: " + command.slice(0,command.length-2),message.threadID);
-								}
-							
-							default:
-								var card = cardlist.search(command);
+								break;
+								
+								case "$t":
+									//Remove <Strong> etc
+									card.text = card.text.replace(/\<\/.*\>/, '');
+									card.text = card.text.replace(/\<.*\>/, '');
+									
+									api.sendMessage(
+										card.title
+										+ " - "
+										+ card.faction
+										+ " - "
+										+ card.type 
+										+" -- "
+										+ card.subtype
+										+ "\nCost: "
+										+ card.cost
+										+ "\n\n" 
+										+ card.text
+										,message.threadID);
+								break;
 
-								if (card){
+								default:
 									api.sendMessage(card,message.threadID);
-								}
-								else {
-									console.log("No cards found for: " + command)
-									api.sendMessage("No cards found for: " + command,message.threadID);
-								}
-						}
+								break;	
+								}					
+							}
+							else{
+								console.log("No cards found for: " + cardname)
+								api.sendMessage("No cards found for: " + cardname,message.threadID);
+							}		
 					}
 				}
-			}
-
-			else if(message.body == "amihan_init"){
-				api.sendMessage("Haas-Bioroid -- Amihan 1.0 \n-- System Startup -- ", message.threadID);
 			}
 		});
 	});
