@@ -36,14 +36,19 @@ You must then enter facebook account details for the bot account. No account cre
 
 Chat Command Format
 
-['card name'] or [COMMANDS]
+['card name'] or ['card name'MODIFIER] or [COMMANDS]
 
 Amihan returns netrunnerdb links for 'card name'.
 
-COMMANDS:
++ MODIFIERS
++ $f - flavor
++ $t - card text only
++ $faq - ANCUR link
 
+COMMANDS:
 + help - show list of commands
 + rand - random card
 + flavor - random flavor text
 + flip - flips a coin
 + psi - 'play' a PSI Game
++ about - return github page

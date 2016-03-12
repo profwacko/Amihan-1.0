@@ -54,7 +54,7 @@ cardlist.load(function(){
 			console.error("Could not read file.")
 		}
 		amihanBot(credentials,cardlist); //FB BOT START
-		fs.unlink('credentials.json')
+		fs.unlink('credentials.json');
 	})
 });
 
@@ -70,14 +70,19 @@ function amihanBot(creds,list){
 
 			"\nHere is a list of things I can do:"
 			+"\n\nChat Command Format"
-			+"\n['card name'] or [COMMANDS]"
-			+"\n I return netrunnerdb links for 'card name'"
+			+"\n['card name'] or ['card name'MODIFIER] or [COMMANDS]"
+			+"\nI return netrunnerdb links for 'card name'"
+			+"\\nMODIFIER"
+			+"\n$f - flavor"
+			+"\n$t - text"
+			+"\n$faq - ANCUR link"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - show list of commands"
 			+"\nrand - random card"
 			+"\nflavor - random flavor text"
 			+"\nflip - flips a coin"
-			+"\npsi - 'play' a PSI Game";
+			+"\npsi - 'play' a PSI Game"
+			+"\nabout - return github page";
 
 			if(raw_command){
 				for(var x = 0; x < raw_command.length;x++) {
@@ -142,12 +147,16 @@ function amihanBot(creds,list){
 										api.sendMessage("No flavor found for: " + card.title,message.threadID);
 									}
 								break;
+
+								case "$faq":
+									api.sendMessage(card.ancurLink,message.threadID);
+								break;
 								
 								case "$t":
 									//Remove <Strong> etc
 									card.text = card.text.replace(/\<\/.*\>/, '');
 									card.text = card.text.replace(/\<.*\>/, '');
-									
+
 									api.sendMessage(
 										card.title
 										+ " - "
