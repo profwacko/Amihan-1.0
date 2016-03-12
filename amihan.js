@@ -51,7 +51,8 @@ cardlist.load(function(){
 		console.log("Credentials Read")
 		credentials = obj;
 		if (err){ 
-			console.error("Could not read file.")
+			console.log("Could not read file")
+			return console.error(err);
 		}
 		amihanBot(credentials,cardlist); //FB BOT START
 		fs.unlink('credentials.json');
@@ -129,12 +130,12 @@ function amihanBot(creds,list){
 
 						default:
 							var cardname = command;
-							var modifier = command.slice(command.length-2,command.length);
+							var modifier = command.slice(command.indexOf("$"),command.length);
 							var card;
 							
-							console.log(modifier.indexOf("$"));
+							//console.log(modifier.indexOf("$"));
 							if (modifier.indexOf("$") >= 0){
-								cardname = command.slice(0,command.length-2);
+								cardname = command.slice(0,command.indexOf("$"));
 							}
 							card = cardlist.search(cardname);
 
@@ -151,7 +152,7 @@ function amihanBot(creds,list){
 								break;
 
 								case "$faq":
-									api.sendMessage(card.ancurLink,message.threadID);
+									api.sendMessage({url:card.ancurLink},message.threadID);
 								break;
 								
 								case "$t":
