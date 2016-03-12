@@ -70,7 +70,9 @@ function amihanBot(creds,list){
 
 			"\nHere is a list of things I can do:"
 			+"\n\nChat Command Format"
-			+"\n['card name'] or ['card name'MODIFIER] or [COMMANDS]"
+			+"\n['card name']"
+			+"\n ['card name'MODIFIER]"
+			+"\n [COMMANDS]"
 			+"\nI return netrunnerdb links for 'card name'"
 			+"\\nMODIFIER"
 			+"\n$f - flavor"
