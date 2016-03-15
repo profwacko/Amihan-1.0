@@ -48,14 +48,15 @@ cardlist.load(function(){
 	var credentials;
 
 	jsonfile.readFile('credentials.json', function(err, obj){
-		console.log("Credentials Read")
 		credentials = obj;
 		if (err){ 
-			console.log("Could not read file")
 			return console.error(err);
 		}
+		else{
+		console.log("Credentials Read")
 		amihanBot(credentials,cardlist); //FB BOT START
 		fs.unlink('credentials.json');
+		}
 	})
 });
 
@@ -64,34 +65,39 @@ function amihanBot(creds,list){
 	    if(err) return console.error(err);
 
 		api.listen(function callback(err, message){
-			if(err) return console.error(err);
+			if(err) {
+				console.error(err);
+				jsonfile.writeFile('credentials.json', creds, function (err) {
+					console.error(err);
+					throw new Error(err);
+				})				
+			}
 			var raw_command = message.body.match(/\[([)@\w :&.\-'\"\$]+)\]/g)
-			console.dir(raw_command);
-			var help = "Hello. What do you need?" +
-
-			"\nHere is a list of things I can do:"
+			var help = "Hello. What do you need?"
+			+"\nHere is a list of things I can do:"
 			+"\n\nChat Command Format"
 			+"\n['card name']"
-			+"\n ['card name'MODIFIER]"
-			+"\n [COMMANDS]"
+			+"\n['card name'MODIFIER]"
+			+"\n[COMMANDS]"
 			+"\nI return netrunnerdb links for 'card name'"
-			+"\\nMODIFIER"
+			+"\nMODIFIER"
 			+"\n$f - flavor"
 			+"\n$t - text"
-			//+"\n$faq - ANCUR link"
+			+"\n$faq - ANCUR link"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - show list of commands"
 			+"\nrand - random card"
 			+"\nflavor - random flavor text"
 			+"\nflip - flips a coin"
 			+"\npsi - 'play' a PSI Game"
-			+"\nabout - return github page";
+			+"\nabout - info page link";
 
 			if(raw_command){
+				console.dir(raw_command);
 				for(var x = 0; x < raw_command.length;x++) {
 					var rand = Math.floor(Math.random()*(cardlist.list.length+1))
 					var command = raw_command[x].slice(1,raw_command[x].length-1);
-
+					
 					switch(command.toLowerCase()) {
 						case "help":
 							api.sendMessage(help,message.threadID);
@@ -137,6 +143,7 @@ function amihanBot(creds,list){
 							if (modifier.indexOf("$") >= 0){
 								cardname = command.slice(0,command.indexOf("$"));
 							}
+							
 							card = cardlist.search(cardname);
 
 							if(card){
@@ -156,7 +163,6 @@ function amihanBot(creds,list){
 								break;
 								
 								case "$t":
-									//Remove <Strong> etc
 									card.text = card.text.replace(/\<\/.*\>/, '');
 									card.text = card.text.replace(/\<.*\>/, '');
 
