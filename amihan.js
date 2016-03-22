@@ -15,6 +15,7 @@ var cardtype = {
       "Score": "agendapoints"
     },
     "ICE": {
+      "STR" : "strength",
       "Rez": "cost",
       "Influence": "factioncost"
     },
