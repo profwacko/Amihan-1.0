@@ -122,8 +122,10 @@ cardlist.load(function(){
 
 function getText(card){
 	template = cardtype[card.side][card.type];
+  if (card.uniqueness){
+    card.title = card.title + " •";
+  }
 	card_text = card.title + "\n" + card.type +": " + card.subtype + "\n";
-
 	for (var param in template){
 		card_text = card_text + param + " " + card[template[param]] + " ";
 	}
