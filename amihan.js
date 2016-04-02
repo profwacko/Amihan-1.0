@@ -144,17 +144,18 @@ function amihanBot(creds,list){
 					throw new Error(err);
 				})
 			}
-			var raw_command = message.body.match(/\[([)@\w :&.\-'\"\$]+)\]/g)
+      api.sendMessage(message,message.threadID);
+			var raw_command = message.body.match(/\[.*\]/g)
 			var help = "Hello. What do you need?"
 			+"\nHere is a list of things I can do:"
 			+"\n\nChat Command Format"
 			+"\n['card name']"
 			+"\n['card name'MODIFIER]"
 			+"\n[COMMANDS]"
-			+"\nI return netrunnerdb links for 'card name'"
+			+"\nI return card text for 'card name'"
 			+"\nMODIFIER"
 			+"\n$f - flavor"
-			+"\n$t - text"
+			+"\n$ndb - netrunnerdb link"
 			+"\n$faq - ANCUR link"
 			+"\n\nCOMMANDS:"
 			+"\nhelp - show list of commands"
@@ -162,7 +163,7 @@ function amihanBot(creds,list){
 			+"\nflavor - random flavor text"
 			+"\nflip - flips a coin"
 			+"\npsi - 'play' a PSI Game"
-			+"\nabout - info page link";
+			+"\nabout - get info page link";
 
 			if(raw_command){
 				console.dir(raw_command);
@@ -234,19 +235,18 @@ function amihanBot(creds,list){
 									api.sendMessage({url:card.ancurLink},message.threadID);
 								break;
 
-								case "$t":
-
-									card.text = card.text.replace(/\<\/.*\>/, '');
-									card.text = card.text.replace(/\<.*\>/, '');
-
-									msg = getText(card);
-									msg = msg.replace(/\[Subroutine\]/g, '->');
-									api.sendMessage(msg,message.threadID);
-
+								case "$ndb":
+                  var msg = {"body": "","url": card.url};
+                  api.sendMessage(msg,message.threadID);
 								break;
 
 								default:
-									api.sendMessage(card,message.threadID);
+                  card.text = card.text.replace(/\<\/.*\>/, '');
+                  card.text = card.text.replace(/\<.*\>/, '');
+
+                  msg = getText(card);
+                  msg = msg.replace(/\[Subroutine\]/g, '->');
+                  api.sendMessage(msg,message.threadID);
 								break;
 								}
 							}

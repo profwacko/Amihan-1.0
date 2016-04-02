@@ -3,7 +3,7 @@ Android: Netrunner Facebook Chat Bot using [facebook-chat-api](https://www.npmjs
 
 Inspired by: [netrunnerbot](https://github.com/b0wmz1337/redditbots/tree/master/netrunnerbot)
 
-I decided to make a fun little facebook chatbot for our community's facebook chat. 
+I decided to make a fun little facebook chatbot for our community's facebook chat.
 
 ##Setup
 
@@ -38,11 +38,11 @@ Chat Command Format
 
 ['card name'] or ['card name'MODIFIER] or [COMMANDS]
 
-Amihan returns netrunnerdb links for 'card name'.
+Amihan returns card text for 'card name'.
 
 + MODIFIERS
 + $f - flavor
-+ $t - card text only
++ $ndb - netrunnerdb links
 + $faq - ANCUR link
 
 COMMANDS:
