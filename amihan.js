@@ -291,7 +291,7 @@ function getText(card){
   else{
     title = card.title;
   }
-
+  //Check if no subtype
   card_text = title + "\n" + card.type +": " + card.subtype + "\n";
   for (var param in template){
     card_text = card_text + param + " " + card[template[param]] + " ";
