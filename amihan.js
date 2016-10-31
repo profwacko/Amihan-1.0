@@ -218,8 +218,8 @@ var abbrev = {
   'd1en': 'MemStrips',
   'dien': 'MemStrips',
   'ber': 'Bioroid Efficiency Research',
-  'ci fund': 'C.I. Fund'
-  'temujin contract' : 'Temüjin Contract'
+  'ci fund': 'C.I. Fund',
+  'temujin contract' : 'Temüjin Contract',
   'temu' : 'Temüjin Contract'
 }
 
