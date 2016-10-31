@@ -139,58 +139,58 @@ var abbrev = {
 }
 
 var cardtype = {
-  "Corp": {
-    "Identity": {
-      "Decksize": "minimumdecksize",
-      "Influence": "influencelimit"
+  "corp": {
+    "identity": {
+      "Decksize": "minimum_deck_size",
+      "Influence": "influence_limit"
     },
-    "Agenda": {
-      "Adv": "advancementcost",
-      "Score": "agendapoints"
+    "agenda": {
+      "Adv": "advancement_cost",
+      "Score": "agenda_points"
     },
-    "ICE": {
+    "ice": {
       "STR" : "strength",
       "Rez": "cost",
-      "Influence": "factioncost"
+      "Influence": "faction_cost"
     },
-    "Operation": {
+    "operation": {
       "Cost": "cost",
-      "Influence": "factioncost"
+      "Influence": "faction_cost"
     },
-    "Asset": {
+    "asset": {
       "Rez": "cost",
-      "Trash": "trash",
-      "Influence": "factioncost"
+      "Trash": "trash_cost",
+      "Influence": "faction_cost"
     },
-    "Upgrade": {
+    "upgrade": {
       "Rez": "cost",
-      "Trash": "trash",
-      "Influence": "factioncost"
+      "Trash": "trash_cost",
+      "Influence": "faction_cost"
     }
   },
-  "Runner": {
-    "Identity": {
+  "runner": {
+    "identity": {
       "Link": "link",
-      "Decksize": "minimumdecksize",
-      "Influence": "influencelimit"
+      "Decksize": "minimum_deck_size",
+      "Influence": "influence_limit"
     },
-    "Event": {
+    "event": {
       "Cost": "cost",
-      "Influence": "factioncost"
+      "Influence": "faction_cost"
     },
-    "Hardware": {
+    "hardware": {
       "Install": "cost",
-      "Influence": "factioncost"
+      "Influence": "faction_cost"
     },
-    "Resource": {
+    "resource": {
       "Install": "cost",
-      "Influence": "factioncost"
+      "Influence": "faction_cost"
     },
-    "Program": {
+    "program": {
       "Install": "cost",
-      "Memory": "memoryunits",
+      "Memory": "memory_cost",
       "Strength": "strength",
-      "Influence": "factioncost"
+      "Influence": "faction_cost"
     }
   }
 }
@@ -207,7 +207,7 @@ function CardList(filename){
   this.load = function(callback){
     jsonfile.readFile(filename, function(err, obj){
       console.log("File Read");
-      self.list = obj;
+      self.list = obj.data;
       //console.dir(list);
       if (err){
         console.error("Could not read file.")
@@ -268,6 +268,7 @@ var cardlist = new CardList('cardlist.json');
 
 cardlist.load(function(){
   console.log(cardlist.list.length + " cards in database");
+  //console.dir(cardlist);
   var credentials;
 
   jsonfile.readFile('credentials.json', function(err, obj){
@@ -284,7 +285,7 @@ cardlist.load(function(){
 });
 
 function getText(card){
-  var template = cardtype[card.side][card.type];
+  var template = cardtype[card.side_code][card.type_code];
   if (card.uniqueness){
     title = card.title + " •";
   }
@@ -292,12 +293,12 @@ function getText(card){
     title = card.title;
   }
   //Check if no subtype
-  card_text = title + "\n" + card.type +": " + card.subtype + "\n";
+  card_text = title + "\n" + card.faction_code + "\n" + card.type_code +": " + card.keywords + "\n";
   for (var param in template){
     card_text = card_text + param + " " + card[template[param]] + " ";
   }
 
-  card_text = card_text + "\n\n" + card.text + "\n\n" + card.faction
+  card_text = card_text + "\n\n" + card.text 
   return card_text;
 }
 
@@ -415,15 +416,14 @@ function amihanBot(creds,list){
             var cardname = command;
             var modifier = command.slice(command.indexOf("$"),command.length);
             var card;
-
             //console.log(modifier.indexOf("$"));
             if (modifier.indexOf("$") >= 0){
               cardname = command.slice(0,command.indexOf("$"));
             }
 
+            //console.log(cardname);
             card = cardlist.search(cardname);
             //If search failed, fuzzy search;
-
             if(card){
               cardPrint(card,modifier);
             }
