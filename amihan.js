@@ -8,6 +8,10 @@ var options = {
   extract: function(el){ return el.title; }
 };
 
+String.prototype.caps = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 var abbrev = {
 	'proco': 'Professional Contacts',
 	'procon': 'Professional Contacts',
@@ -293,9 +297,9 @@ function getText(card){
     title = card.title;
   }
   //Check if no subtype
-  card_text = title + "\n" + card.faction_code + "\n" + card.type_code +": " + card.keywords + "\n";
+  card_text = title + "\n" + card.faction_code.caps() + "\n" + card.type_code.caps() +": " + card.keywords + "\n";
   for (var param in template){
-    card_text = card_text + param + " " + card[template[param]] + " ";
+    card_text = card_text + param.caps() + " " + card[template[param]] + " ";
   }
 
   card_text = card_text + "\n\n" + card.text 
