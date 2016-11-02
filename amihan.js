@@ -325,20 +325,10 @@ function CardList(filename){
   this.fuzzysearch = function(cardname){
     var results = fuzzy.filter(cardname, self.list,options);
     var matches = results.map(function(el) {
-      //console.log(el);
       return el;
     });
-//    previous.score = 0;
-//    for (var current in matches){
-//      result = current;
-//      if current.score > previous.score{
-//        result = current;
-//      }
-//      previous = current;
-//    }
-//  console.log(matches);
+
   if (matches.length){
-    //console.log(matches[0].original.title);
     return matches[0].original;
   }
   else return 0;
@@ -346,14 +336,10 @@ function CardList(filename){
   }
 }
 
-
-
-//console.log(cardtype["Corp"]);
 var cardlist = new CardList('cardlist.json');
 
 cardlist.load(function(){
   console.log(cardlist.list.length + " cards in database");
-  //console.dir(cardlist);
   var credentials;
 
   jsonfile.readFile('credentials.json', function(err, obj){
@@ -396,7 +382,7 @@ function getText(card){
 
 
 function amihanBot(creds,list){
-  login(creds, function callback (err, api) {
+  login(creds, function callback(err, api) {
     if(err) return console.error(err);
 
     api.listen(function callback(err, message){
@@ -407,7 +393,9 @@ function amihanBot(creds,list){
           throw new Error(err);
         })
       }
+
       api.sendMessage(message,message.threadID);
+
       var raw_command = message.body.match(/\[[^\[\]]*\]/g)
       var help = "Hello. What do you need?"
       +"\nHere is a list of things I can do:"
