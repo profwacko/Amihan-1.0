@@ -4,6 +4,8 @@ var jsonfile = require('jsonfile');
 var util = require('util');
 var fs = require('fs');
 var fuzzy = require('fuzzy');
+var http = require('http-request');
+
 var options = {
   extract: function(el){ return el.title; }
 };
@@ -283,6 +285,7 @@ var cardtype = {
 function CardList(filename){
 
   var list = {};
+  var lastupdate = new Date();
   var self = this;
 
   this.getList = function(){
@@ -292,13 +295,17 @@ function CardList(filename){
   this.load = function(callback){
     jsonfile.readFile(filename, function(err, obj){
       console.log("File Read");
-      self.list = obj.data;
       //console.dir(list);
       if (err){
-        console.error("Could not read file.")
+        console.error(err);
+        console.error("Could not read file.");
         return;
       }
-      else callback();
+      else {
+        self.list = obj.data;
+        self.lastupdate = new Date(obj.last_updated);
+        callback();
+      }
     })
   }
 
@@ -350,7 +357,8 @@ cardlist.load(function(){
     else{
       console.log("Credentials Read")
       amihanBot(credentials,cardlist); //FB BOT START
-      fs.unlink('credentials.json');
+      //fs.close();
+      //fs.unlink('credentials.json');
     }
   })
 });
@@ -490,6 +498,29 @@ function amihanBot(creds,list){
 
             case "about":
             api.sendMessage("Amihan 1.0 by profwacko on github: https://github.com/profwacko/Amihan-1.0",message.threadID);
+            break;
+
+            case "getcards":
+            api.sendMessage("Checking for new cards...\n",message.threadID);
+            api.sendMessage("JSON file last updated on: \n" + cardlist.lastupdate.toString(),message.threadID)
+            http.get('http://netrunnerdb.com/api/2.0/public/cards', function (err, res) {
+              if (err) {
+                console.error(err);
+                return;
+              }
+              var tempJSON = JSON.parse(res.buffer.toString());
+              var newJSONDate = new Date(tempJSON.last_updated);
+              console.log(res.buffer.toString());
+              if( (newJSONDate > cardlist.lastupdate) || (tempJSON.data.length > cardlist.length) ){
+                console.log("Cardlist is outdated");
+                api.sendMessage("JSON is outdated\n Update commencing");
+              }
+              else{
+                console.log("No new updates");
+                api.sendMessage("No new updates");
+              }
+            });
+
             break;
 
             default:
