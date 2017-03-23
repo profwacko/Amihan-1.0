@@ -220,7 +220,9 @@ var abbrev = {
   'ber': 'Bioroid Efficiency Research',
   'ci fund': 'C.I. Fund',
   'temujin contract' : 'Temüjin Contract',
-  'temu' : 'Temüjin Contract'
+  'temu' : 'Temüjin Contract',
+  'sifr' : 'Şifr',
+  'boom' : 'Boom!'
 }
 
 var cardtype = {
