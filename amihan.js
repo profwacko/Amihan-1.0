@@ -442,7 +442,7 @@ function amihanBot(creds,list){
           card.text = card.text.replace(/\<.*\>/, '');
 
           msg = getText(card);
-          msg = msg.replace(/\[Subroutine\]/g, '->');
+          msg = msg.replace(/\[subroutine\]/g, '->');
           api.sendMessage(msg,message.threadID);
           break;
         }
