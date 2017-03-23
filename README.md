@@ -5,7 +5,7 @@ Inspired by: [netrunnerbot](https://github.com/b0wmz1337/redditbots/tree/master/
 
 I decided to make a fun little facebook chatbot for our community's facebook chat.
 
-##Setup
+## Setup
 
 To run, you need to have [forever](https://www.npmjs.com/package/forever) installed globally
 
@@ -32,7 +32,7 @@ Then run init script
 
 You must then enter facebook account details for the bot account. No account credentials are saved in the files.
 
-##Commands
+## Commands
 
 Chat Command Format
 
