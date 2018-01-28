@@ -240,7 +240,7 @@ var abbrev = {
   'sifr': 'Ṣifr',
   'piot': 'Peace in Our Time',
   'sna': 'Sensor Net Activation',
-  'Sunya ', 'Sūnya',
+  'Sunya': 'Sūnya',
   'barney': 'Bryan Stinson',
   'hat': 'Hellion Alpha Test',
   'hbt': 'Hellion Beta Test',
