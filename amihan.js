@@ -265,7 +265,7 @@ var abbrev = {
   'mca': 'MCA Austerity Policy',
   'map': 'MCA Austerity Policy',
   'nanotech': "Na'Not'K",
-  'nanotek': "Na'Not'K"
+  'nanotek': "Na'Not'K",
   'ci fund': 'C.I. Fund',
   'temujin contract' : 'Temüjin Contract',
   'temu' : 'Temüjin Contract',
