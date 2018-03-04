@@ -30,7 +30,7 @@ Then run init script
 ./init.sh
 ```
 
-You must then enter facebook account details for the bot account. No account credentials are saved in the files.
+You must then enter facebook account details for the bot account. No account credentials are saved in the files permanently.
 
 ## Commands
 
