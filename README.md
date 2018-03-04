@@ -26,9 +26,9 @@ npm install
 ```
 
 Download netrunnerdb cards from API in JSON format
-'''
+```
 ./getcards.sh
-'''
+```
 
 Then run init script
 ```
