@@ -1,9 +1,9 @@
 # Amihan-1.0
 Android: Netrunner Facebook Chat Bot using [facebook-chat-api](https://www.npmjs.com/package/facebook-chat-api)
 
-Inspired by: [netrunnerbot](https://github.com/b0wmz1337/redditbots/tree/master/netrunnerbot)
+Inspired by: [netrunnerbot](https://github.com/b0wmz1337/redditbots/tree/master/netrunnerbot) and [stimbot](https://github.com/dodgepong/stimbot)
 
-I decided to make a fun little facebook chatbot for our community's facebook chat.
+I decided to make a fun little facebook chatbot for our community's facebook chat. For it to work you need a copy of the netrunnerdb list of cards to a local file (cardlist.json) and reads from that.
 
 ## Setup
 
@@ -24,6 +24,11 @@ Install dependencies
 ```
 npm install
 ```
+
+Download netrunnerdb cards from API in JSON format
+'''
+./getcards.sh
+'''
 
 Then run init script
 ```
