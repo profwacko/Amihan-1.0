@@ -488,8 +488,18 @@ function amihanBot(creds,list){
           break;
 
           default:
-          card.text = card.text.replace(/\<\/.*\>/, '');
-          card.text = card.text.replace(/\<.*\>/, '');
+          card.text = card.text.replace(/\<\/strong\>/g, '*');
+          card.text = card.text.replace(/\<strong\>/g, '*');
+
+          card.text = card.text.replace(/\<\/trace\>/g, '_');
+          card.text = card.text.replace(/\<trace\>/g, '_');
+
+          card.text = card.text.replace(/\<\/ul\>/g, '');
+          card.text = card.text.replace(/\<ul\>/g, '\n');
+
+          card.text = card.text.replace(/\<\/li\>/g, '');
+          card.text = card.text.replace(/\<li\>/g, '\n');
+
 
           msg = getText(card);
           msg = msg.replace(/\[subroutine\]/g, '->');
