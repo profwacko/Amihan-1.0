@@ -3,7 +3,7 @@ Android: Netrunner Facebook Chat Bot using [facebook-chat-api](https://www.npmjs
 
 Inspired by: [netrunnerbot](https://github.com/b0wmz1337/redditbots/tree/master/netrunnerbot) and [stimbot](https://github.com/dodgepong/stimbot)
 
-I decided to make a fun little facebook chatbot for our community's facebook chat. For it to work you need a copy of the netrunnerdb list of cards to a local file (cardlist.json) and reads from that.
+I decided to make a fun little facebook "chatbot" for our community's facebook chat. For it to work you need a copy of the netrunnerdb list of cards to a local file (cardlist.json) and reads from that.
 
 ## Setup
 
@@ -41,9 +41,11 @@ You must then enter facebook account details for the bot account. No account cre
 
 Chat Command Format
 
+Amihan Bot listens for text with the following format within messages:
+
 ['card name'] or ['card name'MODIFIER] or [COMMANDS]
 
-Amihan returns card text for 'card name'.
+Amihan returns card text and other information for 'card name'
 
 + MODIFIERS
 + $f - flavor
